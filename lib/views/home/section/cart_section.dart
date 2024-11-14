@@ -74,7 +74,7 @@ class CartSection extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image(
-                              height: verticalSpace(context, .25),
+                              height: verticalSpace(context, .125),
                               width: horizontalSpace(context, .3),
                               image: CachedNetworkImageProvider(cylinder.imageUrl),
                               fit: BoxFit.cover,
@@ -94,7 +94,7 @@ class CartSection extends StatelessWidget {
                                 ),
                                 CustomSpacing(height: .012),
                                 Text(
-                                  cylinder.name,
+                                  "${cylinder.currency} ${cylinder.price} /=",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
@@ -104,6 +104,26 @@ class CartSection extends StatelessWidget {
                               ],
                             ),
                           ],
+                        ),
+                        CustomSpacing(height: .02),
+                        TextButton(
+                          onPressed: (){
+                            Get.back();
+                            cylinderViewModel.checkout(cylinder);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "CheckOut",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          )
                         ),
                       ],
                     )

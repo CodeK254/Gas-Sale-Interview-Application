@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
 import 'package:gas_sale/data/repositories/cylinder_repository.dart';
+import 'package:gas_sale/utils/widgets/spacing.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,9 +32,25 @@ class CylinderViewModel extends GetConnect{
     _cartItems.remove(item);
     await Get.dialog(
       AlertDialog(
+        title: Text(
+          "Success!!!",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey.shade900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            CustomSpacing(height: .012),
+            Image(
+              image: AssetImage('assets/badge.png'),
+              height: 150,
+              width: 150,
+              color: Colors.green,
+            ),
+            CustomSpacing(height: .012),
             Text(
               "Thanks for making this purchase. Feel free to browse our new catalog.",
               style: TextStyle(
@@ -41,28 +58,18 @@ class CylinderViewModel extends GetConnect{
                 color: Colors.grey.shade700,
               ),
             ),
+            CustomSpacing(height: .012),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
                   onPressed: (){
-
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.red.shade300,
-                  ),
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
-                  )
-                ),
-                TextButton(
-                  onPressed: (){
-
+                    if(_cartItems.isEmpty){
+                      Get.back();
+                      _selected.value = 0;
+                    } else {
+                      Get.back();
+                    }
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.green,

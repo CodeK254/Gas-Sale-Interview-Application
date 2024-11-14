@@ -17,6 +17,7 @@ void main() async {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
             ),
+            backgroundColor: Colors.pink,
             padding: EdgeInsets.all(0),
           ),
         ),
