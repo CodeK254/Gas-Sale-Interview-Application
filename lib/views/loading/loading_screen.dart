@@ -18,7 +18,8 @@ class LoadingScreen extends StatelessWidget {
             image: AssetImage('assets/cylinder.png'),
             width: horizontalSpace(context, .55),
             height: verticalSpace(context, .45),
-          ).animate(
+          )
+          .animate(
             effects: [
               ScaleEffect(
                 begin: Offset(1, 1),

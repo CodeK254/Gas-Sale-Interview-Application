@@ -13,9 +13,9 @@ class CylinderRepository{
     try{
       final response = await httpClient.get(
         Uri.parse("https://6735d1185995834c8a94350f.mockapi.io/api/v1/gas_sale/cylinders"),
-        // headers: {
-        //   'Accept': 'application/json',
-        // }
+        headers: {
+          'Accept': 'application/json',
+        }
       );
       if(response.statusCode == 200){
         List categories = jsonDecode(response.body);
