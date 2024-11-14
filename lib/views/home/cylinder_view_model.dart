@@ -8,11 +8,11 @@ import 'package:http/http.dart' as http;
 
 class CylinderViewModel extends GetConnect{
   CylinderRepository cylinderRepository = CylinderRepository(httpClient: http.Client());
-  final RxSet<CylinderModel> _cartItems = <CylinderModel>{}.obs;
-  Set get cartItems => _cartItems;
+  final RxList<CylinderModel> _cartItems = <CylinderModel>[].obs;
+  List get cartItems => _cartItems;
   final RxInt _selected = 0.obs;
   int get selected => _selected.value;
-  bool exists(CylinderModel item) => _cartItems.contains(item);
+  bool exists(CylinderModel item) => _cartItems.where((element) => element.name == item.name).isNotEmpty;
 
   void toggleSelected(int index){
     _selected.value = index;

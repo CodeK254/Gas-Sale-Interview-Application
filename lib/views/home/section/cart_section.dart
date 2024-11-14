@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
+import 'package:gas_sale/utils/widgets/space.dart';
+import 'package:gas_sale/utils/widgets/spacing.dart';
 import 'package:gas_sale/views/home/cylinder_view_model.dart';
+import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CartSection extends StatelessWidget {
@@ -60,6 +63,53 @@ class CartSection extends StatelessWidget {
                 Icons.delete,
                 color: Colors.red.withOpacity(.75),
               ),
+              onTap: (){
+                Get.dialog(
+                  AlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image(
+                              height: verticalSpace(context, .25),
+                              width: horizontalSpace(context, .3),
+                              image: CachedNetworkImageProvider(cylinder.imageUrl),
+                              fit: BoxFit.cover,
+                            ),
+                            CustomSpacing(width: .02),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  cylinder.name,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade800,
+                                  ),
+                                ),
+                                CustomSpacing(height: .012),
+                                Text(
+                                  cylinder.name,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.grey.shade900,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  )
+                );
+              },
             ),
           );
         }
@@ -69,41 +119,45 @@ class CartSection extends StatelessWidget {
 }
 
 class CustomDisplayTile extends StatelessWidget {
-  const CustomDisplayTile({super.key, required this.leading, required this.title, this.subtitle, this.trailing});
+  const CustomDisplayTile({super.key, required this.leading, required this.title, this.subtitle, this.trailing, this.onTap});
   final Widget leading;
   final Widget title;
   final Widget? subtitle;
   final Widget? trailing;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                leading,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    title,
-                    subtitle ?? Container(),
-                  ],
-                ),
-              ],
-            ),
-            trailing ?? Container(),
-          ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  leading,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      title,
+                      subtitle ?? Container(),
+                    ],
+                  ),
+                ],
+              ),
+              trailing ?? Container(),
+            ],
+          ),
         ),
       ),
     );
