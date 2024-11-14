@@ -1,4 +1,4 @@
-import 'package:gas_sale/data/models/food.dart';
+import 'package:gas_sale/data/models/cylinder_model.dart';
 import 'package:gas_sale/views/home/home_view_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -70,25 +70,29 @@ class MyHomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           CachedNetworkImage(
+                            height: MediaQuery.sizeOf(context).height * .14,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
                             imageUrl: categories[index].imageUrl,
                             placeholder: (context, url) {
                               return SizedBox(
-                                height: MediaQuery.of(context).size.height * .12,
+                                height: MediaQuery.sizeOf(context).height * .12,
                                 child: const Center(
                                   child: Text("Loading..."),
                                 ),
                               );
                             },
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.012),
                           Center(
                             child: Text(
                               categories[index].name,
                               style: GoogleFonts.ubuntu(
-                                fontSize: 22,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: Colors.grey.shade800,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           )
                         ],

@@ -1,3 +1,5 @@
+import 'package:gas_sale/utils/formating/format_name.dart';
+
 class CylinderModel {
   final int id;
   final double price;
@@ -16,10 +18,10 @@ class CylinderModel {
   factory CylinderModel.fromJson(Map<String, dynamic> json){
     return CylinderModel(
       id: int.parse(json['id']), 
-      name: json['name'], 
-      imageUrl: json['image_url'],
-      currency: json['currency'],
-      price: json['price']
+      name: formatName(json['name']), 
+      imageUrl: "https://www.shutterstock.com/image-illustration/collection-gas-cylinders-various-colors-600nw-2186712775.jpg",
+      currency: "KES",
+      price: double.parse(json['price'])
     );
   }
 
