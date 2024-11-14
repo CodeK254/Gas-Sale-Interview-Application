@@ -4,10 +4,10 @@ import 'package:gas_sale/views/home/section/cart_section.dart';
 import 'package:gas_sale/views/home/section/cylinder_section.dart';
 import 'package:get/get.dart';
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  final CylinderViewModel cylinderViewModel = Get.put(CylinderViewModel());
+  final CylinderViewModel cylinderViewModel = Get.find<CylinderViewModel>();
 
   @override
   Widget build(BuildContext context) {
