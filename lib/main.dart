@@ -1,32 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gas_sale/utils/constants/theme_data.dart';
 import 'package:gas_sale/views/home/cylinder_view_model.dart';
 import 'package:gas_sale/views/home/home_screen.dart';
 import 'package:gas_sale/views/loading/loading_screen.dart';
 import 'package:gas_sale/views/loading/loading_vew_model.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        textTheme: GoogleFonts.ubuntuTextTheme(),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            backgroundColor: Colors.pink,
-            padding: EdgeInsets.all(0),
-          ),
-        ),
-        appBarTheme: AppBarTheme(
-          color: Colors.white,
-        )
-      ),
+      theme: themeData,
       getPages: [
         GetPage(
           name: '/', 
