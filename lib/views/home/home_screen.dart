@@ -16,11 +16,11 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Food Categories",
+          "Cylinder Categories",
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.green,
           ),
         ),
         actions: [
@@ -48,16 +48,16 @@ class MyHomePage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
+                      color: Colors.grey.shade100,
                       boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(-4, -4),
-                          color: Colors.grey.shade800,
+                        const BoxShadow(
+                          offset: Offset(-4, -4),
+                          color: Colors.white,
                           blurRadius: 8,
                         ),
-                        const BoxShadow(
-                          offset: Offset(4, 4),
-                          color: Colors.black,
+                        BoxShadow(
+                          offset: const Offset(4, 4),
+                          color: Colors.grey.shade300,
                           blurRadius: 8,
                         ),
                       ],
@@ -97,7 +97,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               );
-            } else {
+            } else if(!snapshot.hasData) {
               return Skeletonizer(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -111,16 +111,16 @@ class MyHomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
+                        color: Colors.grey.shade100,
                         boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(-4, -4),
-                            color: Colors.grey.shade800,
+                          const BoxShadow(
+                            offset: Offset(-4, -4),
+                            color: Colors.white,
                             blurRadius: 8,
                           ),
-                          const BoxShadow(
-                            offset: Offset(4, 4),
-                            color: Colors.black,
+                          BoxShadow(
+                            offset: const Offset(4, 4),
+                            color: Colors.grey.shade300,
                             blurRadius: 8,
                           ),
                         ],
@@ -140,6 +140,12 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                  "An error occured while processing"
                 ),
               );
             }

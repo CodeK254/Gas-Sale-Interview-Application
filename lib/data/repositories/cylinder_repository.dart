@@ -6,7 +6,7 @@ class CylinderRepository extends GetConnect {
     List<CylinderModel> cylinderModelList = <CylinderModel>[];
     try{
       final response = await get(
-        "https://www.themealdb.com/api/json/v1/1/categories.php",
+        "https://1e81016d-be7b-4676-86af-fe9be9c2fe48.mock.pstmn.io/cylinders",
         headers: {
           'Accept': 'application/json',
         }
