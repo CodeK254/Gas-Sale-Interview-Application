@@ -10,7 +10,7 @@ void main() {
       home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.green,
-        textTheme: GoogleFonts.dosisTextTheme(),
+        textTheme: GoogleFonts.ubuntuTextTheme(),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(

@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:gas_sale/data/models/cylinder_model.dart';
+import 'package:gas_sale/data/repositories/cylinder_repository.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
-class CartViewModel extends GetxController{
+class CylinderViewModel extends GetConnect{
+  CylinderRepository cylinderRepository = CylinderRepository(httpClient: http.Client());
   final RxSet<Map<String, dynamic>> _cartItems = <Map<String, dynamic>>{}.obs;
   Set get cartItems => _cartItems;
+  final RxInt _selected = 0.obs;
+  int get selected => _selected.value;
+
+  void toggleSelected(int index){
+    _selected.value = index;
+  }
 
   void addToCart(Map<String, dynamic> item){
     _cartItems.add(item);
@@ -69,5 +79,10 @@ class CartViewModel extends GetxController{
       ),
       barrierDismissible: false
     );
+  }
+  // RxList<CylinderModel> CylinderModelList = <CylinderModel>[].obs;
+  Future<List<CylinderModel>> getCategories() async {
+    List<CylinderModel> categories = await cylinderRepository.fetchCategory();
+    return categories;
   }
 }
