@@ -35,3 +35,7 @@ class CylinderModel {
     };
   }
 }
+
+extension CylonderExtensions on CylinderModel{
+  String get toMapString => toJson(this).toString();
+}

@@ -19,8 +19,8 @@ class CylinderViewModel extends GetConnect{
   }
 
   void addToCart(CylinderModel item){
-    _cartItems.add(item);
-    log(_cartItems.toString());
+    _cartItems.addIf(!exists(item), item);
+    log(item.toMapString);
   }
 
   void removeFromCart(CylinderModel item){

@@ -20,6 +20,9 @@ void main() async {
             padding: EdgeInsets.all(0),
           ),
         ),
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+        )
       ),
     ),
   );
