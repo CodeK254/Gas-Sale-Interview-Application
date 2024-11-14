@@ -17,7 +17,7 @@ class CartSection extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Cylinder Categories",
+          "Items in Cart",
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,

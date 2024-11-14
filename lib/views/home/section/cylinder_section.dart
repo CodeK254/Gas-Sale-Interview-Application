@@ -149,11 +149,10 @@ class CylinderSection extends StatelessWidget {
                                         imageUrl: allCategories[index].imageUrl,
                                         placeholder: (context, url) {
                                           return Skeletonizer(
-                                            child: SizedBox(
+                                            child: Container(
                                               height: MediaQuery.sizeOf(context).height * .12,
-                                              child: const Center(
-                                                child: Text("Loading..."),
-                                              ),
+                                              width: double.infinity,
+                                              color: Colors.orange,
                                             ),
                                           );
                                         },
@@ -209,19 +208,19 @@ class CylinderSection extends StatelessWidget {
                       ],
                     );
                   } else if(!snapshot.hasData) {
-                    return Skeletonizer(
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                          childAspectRatio: 1,
-                        ),
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: 10,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 1,
+                      ),
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: 10,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Skeletonizer(
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade100,
@@ -245,9 +244,54 @@ class CylinderSection extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Container(
-                                    height: MediaQuery.of(context).size.height * .02,
+                                  Stack(
+                                    children: [
+                                      Skeletonizer(
+                                        child: SizedBox(
+                                          height: MediaQuery.sizeOf(context).height * .12,
+                                          child: Center(
+                                            child: Container(
+                                              height: verticalSpace(context, .12),
+                                              width: double.infinity,
+                                              color: Colors.orange,
+                                            ),
+                                          ),
+                                        ),                                          
+                                      ),
+                                      Positioned(
+                                        right: 0,
+                                        child: Container(
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade100,
+                                            borderRadius: BorderRadius.circular(6)
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Icon(
+                                                Icons.bookmark_border,
+                                                color: Colors.pink,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                  SizedBox(height: MediaQuery.of(context).size.height * 0.012),
+                                  Center(
+                                    child: Text(
+                                      "Item name is here",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey.shade800,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -329,11 +373,10 @@ class CustomHorizontalList extends StatelessWidget {
                                 imageUrl: categories[index].imageUrl,
                                 placeholder: (context, url) {
                                   return Skeletonizer(
-                                    child: SizedBox(
+                                    child: Container(
                                       height: MediaQuery.sizeOf(context).height * .12,
-                                      child: const Center(
-                                        child: Text("Loading..."),
-                                      ),
+                                      width: double.infinity,
+                                      color: Colors.orange,
                                     ),
                                   );
                                 },

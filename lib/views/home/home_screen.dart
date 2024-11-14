@@ -37,7 +37,7 @@ class MyHomePage extends StatelessWidget {
                 icon: Icon(
                   Icons.home,
                 ),
-                label: "Home",
+                label: "Catalog",
               ),
               BottomNavigationBarItem(
                 icon: Stack(
