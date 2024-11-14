@@ -15,16 +15,7 @@ class CartSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Items in Cart",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.blueGrey.shade700,
-          ),
-        ),
-      ),
+      
       body: cylinderViewModel.cartItems.isNotEmpty ? ListView.builder(
         itemCount: cylinderViewModel.cartItems.length,
         itemBuilder: (context, index) {

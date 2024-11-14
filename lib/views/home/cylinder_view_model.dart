@@ -17,6 +17,7 @@ class CylinderViewModel extends GetConnect{
   bool exists(CylinderModel item) => _cartItems.where((element) => element.name == item.name).isNotEmpty;
 
   void toggleSelected(int index){
+    log("Invocked");
     _selected.value = index;
   }
 

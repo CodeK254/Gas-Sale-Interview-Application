@@ -16,35 +16,6 @@ class CylinderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Cylinder Categories",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.blueGrey.shade700,
-          ),
-        ),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                onTap: (){
-                  cylinderViewModel.toggleSelected(cylinderViewModel.selected);
-                },
-                child: Text(
-                  "Refresh",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.normal,
-                  ),
-                )
-              )
-            ],
-          ),
-        ],
-      ),
       body: RefreshIndicator(
         onRefresh: (() async {
           cylinderViewModel.toggleSelected(cylinderViewModel.selected);

@@ -4,15 +4,50 @@ import 'package:gas_sale/views/home/section/cart_section.dart';
 import 'package:gas_sale/views/home/section/cylinder_section.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final CylinderViewModel cylinderViewModel = Get.find<CylinderViewModel>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            cylinderViewModel.selected == 0 ? "Cylinder Categories" : "Items in Cart",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueGrey.shade700,
+            ),
+          ),
+          actions: [
+            if(cylinderViewModel.selected == 0)
+              PopupMenuButton(
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    onTap: (){
+                      setState((){});
+                    },
+                    child: Text(
+                      "Refresh",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    )
+                  )
+                ],
+              ),
+          ],
+        ),
         body: cylinderViewModel.selected == 0 ? 
           CylinderSection(cylinderViewModel: cylinderViewModel)
         : CartSection(cylinderViewModel: cylinderViewModel),
