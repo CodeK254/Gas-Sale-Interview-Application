@@ -1,9 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
 import 'package:gas_sale/views/home/home_view_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -15,12 +15,12 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Cylinder Categories",
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
-            color: Colors.green,
+            color: Colors.blueGrey.shade700,
           ),
         ),
         actions: [
@@ -31,129 +31,237 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<List<CylinderModel>>(
-          future: foodController.getCategories(),
-          builder: (context, snapshot) {
-            if(snapshot.hasData){
-              List<CylinderModel> categories = snapshot.data!;
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 1,
-                ), 
-                itemCount: 10,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      boxShadow: [
-                        const BoxShadow(
-                          offset: Offset(-4, -4),
-                          color: Colors.white,
-                          blurRadius: 8,
-                        ),
-                        BoxShadow(
-                          offset: const Offset(4, 4),
-                          color: Colors.grey.shade300,
-                          blurRadius: 8,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CachedNetworkImage(
-                            height: MediaQuery.sizeOf(context).height * .14,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            imageUrl: categories[index].imageUrl,
-                            placeholder: (context, url) {
-                              return SizedBox(
-                                height: MediaQuery.sizeOf(context).height * .12,
-                                child: const Center(
-                                  child: Text("Loading..."),
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.012),
-                          Center(
-                            child: Text(
-                              categories[index].name,
-                              style: GoogleFonts.ubuntu(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade800,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Sponsored',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),
-              );
-            } else if(!snapshot.hasData) {
-              return Skeletonizer(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 1,
-                  ), 
-                  itemCount: 10,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        boxShadow: [
-                          const BoxShadow(
-                            offset: Offset(-4, -4),
-                            color: Colors.white,
-                            blurRadius: 8,
+                  SizedBox(height: 8),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: MediaQuery.sizeOf(context).height * .225,
+                      autoPlay: true,
+                      autoPlayAnimationDuration: Duration(seconds: 2),
+                      autoPlayInterval: Duration(seconds: 2),
+                      viewportFraction: .95
+                    ),
+                    items: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: MediaQuery.sizeOf(context).height * 0.225,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            boxShadow: [
+                              const BoxShadow(
+                                offset: Offset(-4, -4),
+                                color: Colors.white,
+                                blurRadius: 8,
+                              ),
+                              BoxShadow(
+                                offset: const Offset(4, 4),
+                                color: Colors.grey.shade300,
+                                blurRadius: 8,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider("https://www.assureshift.in/sites/default/files/images/blog/lpg-connection-booking-bangalore.jpg"),
+                              fit: BoxFit.cover
+                            )
                           ),
-                          BoxShadow(
-                            offset: const Offset(4, 4),
-                            color: Colors.grey.shade300,
-                            blurRadius: 8,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * .02,
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              FutureBuilder<List<CylinderModel>>(
+                future: foodController.getCategories(),
+                builder: (context, snapshot) {
+                  if(snapshot.hasData){
+                    List<CylinderModel> categories = snapshot.data!;
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 1,
+                      ),
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) => Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          boxShadow: [
+                            const BoxShadow(
+                              offset: Offset(-4, -4),
+                              color: Colors.white,
+                              blurRadius: 8,
+                            ),
+                            BoxShadow(
+                              offset: const Offset(4, 4),
+                              color: Colors.grey.shade300,
+                              blurRadius: 8,
                             ),
                           ],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Stack(
+                                children: [
+                                  CachedNetworkImage(
+                                    height: MediaQuery.sizeOf(context).height * .14,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                    imageUrl: categories[index].imageUrl,
+                                    placeholder: (context, url) {
+                                      return SizedBox(
+                                        height: MediaQuery.sizeOf(context).height * .12,
+                                        child: const Center(
+                                          child: Text("Loading..."),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        borderRadius: BorderRadius.circular(6)
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Icon(
+                                            Icons.favorite_outline,
+                                            color: Colors.pink,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.012),
+                              Center(
+                                child: Text(
+                                  categories[index].name,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade800,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              );
-            } else {
-              return const Center(
-                child: Text(
-                  "An error occured while processing"
-                ),
-              );
-            }
-          }
+                    );
+                  } else if(!snapshot.hasData) {
+                    return Skeletonizer(
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          childAspectRatio: 1,
+                        ),
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: 10,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              boxShadow: [
+                                const BoxShadow(
+                                  offset: Offset(-4, -4),
+                                  color: Colors.white,
+                                  blurRadius: 8,
+                                ),
+                                BoxShadow(
+                                  offset: const Offset(4, 4),
+                                  color: Colors.grey.shade300,
+                                  blurRadius: 8,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: MediaQuery.of(context).size.height * .02,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text(
+                        "An error occured while processing"
+                      ),
+                    );
+                  }
+                }
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBarTheme(
+        data: BottomNavigationBarThemeData(
+          selectedItemColor: Colors.green,
+          unselectedItemColor: Colors.grey,
+        ),
+        child: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              label: "Cart",
+            ),
+          ],
         ),
       ),
     );
