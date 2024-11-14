@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
 import 'package:gas_sale/data/repositories/cylinder_repository.dart';
 import 'package:gas_sale/utils/widgets/spacing.dart';
@@ -49,6 +50,15 @@ class CylinderViewModel extends GetConnect{
               height: 150,
               width: 150,
               color: Colors.green,
+            ).animate(
+              effects: [
+                SlideEffect(
+                  begin: Offset(0, -.5),
+                  end: Offset(0, 0),
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.bounceOut,
+                ),
+              ],
             ),
             CustomSpacing(height: .012),
             Text(

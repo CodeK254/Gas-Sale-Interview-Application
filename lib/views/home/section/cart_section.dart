@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
 import 'package:gas_sale/utils/widgets/space.dart';
@@ -24,7 +25,7 @@ class CartSection extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
+      body: cylinderViewModel.cartItems.isNotEmpty ? ListView.builder(
         itemCount: cylinderViewModel.cartItems.length,
         itemBuilder: (context, index) {
           CylinderModel cylinder = cylinderViewModel.cartItems.toList()[index];
@@ -58,10 +59,6 @@ class CartSection extends StatelessWidget {
                   color: Colors.grey.shade900,
                   fontWeight: FontWeight.normal,
                 ),
-              ),
-              trailing: Icon(
-                Icons.delete,
-                color: Colors.red.withOpacity(.75),
               ),
               onTap: (){
                 Get.dialog(
@@ -111,18 +108,61 @@ class CartSection extends StatelessWidget {
                             Get.back();
                             cylinderViewModel.checkout(cylinder);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "CheckOut",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: horizontalSpace(context, .1)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "CheckOut",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              )
-                            ],
+                                CustomSpacing(width: .02),
+                                Icon(
+                                  Icons.shopping_bag,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ],
+                            ),
+                          )
+                        ),
+                        TextButton(
+                          onPressed: (){
+                            Get.back();
+                            cylinderViewModel.removeFromCart(cylinder);
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.red.shade300,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: horizontalSpace(context, .1)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Remove",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                CustomSpacing(width: .02),
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ],
+                            ),
                           )
                         ),
                       ],
@@ -133,6 +173,43 @@ class CartSection extends StatelessWidget {
             ),
           );
         }
+      ) : Center(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "You do not have any items in cart, please visit the catalog or click ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey.shade800,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                TextSpan(
+                  recognizer: TapGestureRecognizer()..onTap = () => cylinderViewModel.toggleSelected(0),
+                  text: "here",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline
+                  ),
+                ),
+                TextSpan(
+                  text: " to view out in-stock catalogue",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey.shade800,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

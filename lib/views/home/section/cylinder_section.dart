@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
+import 'package:gas_sale/utils/services/generate_list.dart';
 import 'package:gas_sale/utils/widgets/label_and_divider.dart';
 import 'package:gas_sale/utils/widgets/space.dart';
 import 'package:gas_sale/utils/widgets/spacing.dart';
@@ -95,14 +96,15 @@ class CylinderSection extends StatelessWidget {
                 builder: (context, snapshot) {
                   if(snapshot.hasData){
                     List<CylinderModel> categories = snapshot.data!;
+                    List<CylinderModel> allCategories = GenerateList.generateAllCylinderList(categories);
                     return Column(
                       children: [
                         CustomLabelAndDivider(label: "3KG Gas Cylinders"),
-                        CustomHorizontalList(categories: categories, cylinderViewModel: cylinderViewModel),
+                        CustomHorizontalList(categories: GenerateList.generate3KGCylinderList(categories), cylinderViewModel: cylinderViewModel),
                         CustomLabelAndDivider(label: "6KG Gas Cylinders"),
-                        CustomHorizontalList(categories: categories, cylinderViewModel: cylinderViewModel),
+                        CustomHorizontalList(categories: GenerateList.generate6KGCylinderList(categories), cylinderViewModel: cylinderViewModel),
                         CustomLabelAndDivider(label: "12KG Gas Cylinders"),
-                        CustomHorizontalList(categories: categories, cylinderViewModel: cylinderViewModel),
+                        CustomHorizontalList(categories: GenerateList.generate12KGCylinderList(categories), cylinderViewModel: cylinderViewModel),
                         CustomSpacing(height: .015),
                         CustomLabelAndDivider(label: "All Category List"),
                         GridView.builder(
@@ -114,7 +116,7 @@ class CylinderSection extends StatelessWidget {
                           ),
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
-                          itemCount: categories.length,
+                          itemCount: allCategories.length,
                           itemBuilder: (context, index) => Container(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade100,
@@ -144,7 +146,7 @@ class CylinderSection extends StatelessWidget {
                                         height: MediaQuery.sizeOf(context).height * .14,
                                         width: double.infinity,
                                         fit: BoxFit.cover,
-                                        imageUrl: categories[index].imageUrl,
+                                        imageUrl: allCategories[index].imageUrl,
                                         placeholder: (context, url) {
                                           return Skeletonizer(
                                             child: SizedBox(
@@ -160,10 +162,10 @@ class CylinderSection extends StatelessWidget {
                                         right: 0,
                                         child: GestureDetector(
                                           onTap: (){
-                                            if(cylinderViewModel.exists(categories[index])){
-                                              cylinderViewModel.removeFromCart(categories[index]);
+                                            if(cylinderViewModel.exists(allCategories[index])){
+                                              cylinderViewModel.removeFromCart(allCategories[index]);
                                             } else {
-                                              cylinderViewModel.addToCart(categories[index]);
+                                              cylinderViewModel.addToCart(allCategories[index]);
                                             }
                                           },
                                           child: Container(
@@ -177,7 +179,7 @@ class CylinderSection extends StatelessWidget {
                                               child: Padding(
                                                 padding: const EdgeInsets.all(4.0),
                                                 child: Icon(
-                                                  !cylinderViewModel.exists(categories[index]) ? Icons.bookmark_border : Icons.bookmark,
+                                                  !cylinderViewModel.exists(allCategories[index]) ? Icons.bookmark_border : Icons.bookmark,
                                                   color: Colors.pink,
                                                 ),
                                               ),
@@ -190,7 +192,7 @@ class CylinderSection extends StatelessWidget {
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.012),
                                   Center(
                                     child: Text(
-                                      categories[index].name,
+                                      allCategories[index].name,
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
