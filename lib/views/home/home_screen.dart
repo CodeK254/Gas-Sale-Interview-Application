@@ -1,5 +1,5 @@
-import 'package:gas_sale/controllers/food_controller.dart';
-import 'package:gas_sale/models/food.dart';
+import 'package:gas_sale/data/models/food.dart';
+import 'package:gas_sale/views/home/home_view_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,11 +31,11 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<List<FoodCategory>>(
+        child: FutureBuilder<List<CylinderModel>>(
           future: foodController.getCategories(),
           builder: (context, snapshot) {
             if(snapshot.hasData){
-              List<FoodCategory> categories = snapshot.data!;
+              List<CylinderModel> categories = snapshot.data!;
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -70,7 +70,7 @@ class MyHomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           CachedNetworkImage(
-                            imageUrl: categories[index].image,
+                            imageUrl: categories[index].imageUrl,
                             placeholder: (context, url) {
                               return SizedBox(
                                 height: MediaQuery.of(context).size.height * .12,
@@ -83,7 +83,7 @@ class MyHomePage extends StatelessWidget {
                           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                           Center(
                             child: Text(
-                              categories[index].category,
+                              categories[index].name,
                               style: GoogleFonts.ubuntu(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
