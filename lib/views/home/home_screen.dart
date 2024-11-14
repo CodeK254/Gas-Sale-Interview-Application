@@ -11,30 +11,60 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: cylinderViewModel.selected == 0 ? 
-        CylinderSection(cylinderViewModel: cylinderViewModel)
-      : CartSection(cylinderViewModel: cylinderViewModel),
-      bottomNavigationBar: BottomNavigationBarTheme(
-        data: BottomNavigationBarThemeData(
-          selectedItemColor: Colors.green,
-          unselectedItemColor: Colors.grey,
-        ),
-        child: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: "Home",
+    return Obx(
+      () => Scaffold(
+        body: cylinderViewModel.selected == 0 ? 
+          CylinderSection(cylinderViewModel: cylinderViewModel)
+        : CartSection(cylinderViewModel: cylinderViewModel),
+        bottomNavigationBar: BottomNavigationBarTheme(
+          data: BottomNavigationBarThemeData(
+            selectedItemColor: Colors.green,
+            unselectedItemColor: Colors.grey,
+            selectedIconTheme: IconThemeData(
+              size: 25,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart,
-              ),
-              label: "Cart",
+            selectedLabelStyle: TextStyle(
+              fontSize: 16,
             ),
-          ],
+          ),
+          child: BottomNavigationBar(
+            currentIndex: cylinderViewModel.selected,
+            onTap: (index){
+              cylinderViewModel.toggleSelected(index);
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: Stack(
+                  children: [
+                    Icon(
+                      Icons.shopping_cart,
+                    ),
+                    Visibility(
+                      visible: cylinderViewModel.cartItems.isNotEmpty,
+                      child: Positioned(
+                        right: 0,
+                        child: CircleAvatar(
+                          radius: 6.5,
+                          backgroundColor: Colors.grey.shade100,
+                          child: CircleAvatar(
+                            radius: 5,
+                            backgroundColor: Colors.orange.shade700,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                label: "Cart",
+              ),
+            ],
+          ),
         ),
       ),
     );

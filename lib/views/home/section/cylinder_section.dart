@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
@@ -50,9 +49,9 @@ class CylinderSection extends StatelessWidget {
                   CarouselSlider(
                     options: CarouselOptions(
                       height: MediaQuery.sizeOf(context).height * .225,
-                      autoPlay: true,
+                      autoPlay: false,
                       autoPlayAnimationDuration: Duration(seconds: 2),
-                      autoPlayInterval: Duration(seconds: 2),
+                      autoPlayInterval: Duration(seconds: 10),
                       viewportFraction: .95
                     ),
                     items: [
@@ -146,19 +145,28 @@ class CylinderSection extends StatelessWidget {
                                   ),
                                   Positioned(
                                     right: 0,
-                                    child: Container(
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade100,
-                                        borderRadius: BorderRadius.circular(6)
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Icon(
-                                            Icons.favorite_outline,
-                                            color: Colors.pink,
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        if(cylinderViewModel.exists(categories[index])){
+                                          cylinderViewModel.removeFromCart(categories[index]);
+                                        } else {
+                                          cylinderViewModel.addToCart(categories[index]);
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade100,
+                                          borderRadius: BorderRadius.circular(6)
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Icon(
+                                              !cylinderViewModel.exists(categories[index]) ? Icons.bookmark_border : Icons.bookmark,
+                                              color: Colors.pink,
+                                            ),
                                           ),
                                         ),
                                       ),

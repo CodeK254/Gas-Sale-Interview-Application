@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gas_sale/data/models/cylinder_model.dart';
 import 'package:gas_sale/data/repositories/cylinder_repository.dart';
@@ -6,24 +8,26 @@ import 'package:http/http.dart' as http;
 
 class CylinderViewModel extends GetConnect{
   CylinderRepository cylinderRepository = CylinderRepository(httpClient: http.Client());
-  final RxSet<Map<String, dynamic>> _cartItems = <Map<String, dynamic>>{}.obs;
+  final RxSet<CylinderModel> _cartItems = <CylinderModel>{}.obs;
   Set get cartItems => _cartItems;
   final RxInt _selected = 0.obs;
   int get selected => _selected.value;
+  bool exists(CylinderModel item) => _cartItems.contains(item);
 
   void toggleSelected(int index){
     _selected.value = index;
   }
 
-  void addToCart(Map<String, dynamic> item){
+  void addToCart(CylinderModel item){
     _cartItems.add(item);
+    log(_cartItems.toString());
   }
 
-  void removeFromCart(Map<String, dynamic> item){
+  void removeFromCart(CylinderModel item){
     _cartItems.remove(item);
   }
 
-  void checkout(Map<String, dynamic> item) async {
+  void checkout(CylinderModel item) async {
     _cartItems.remove(item);
     await Get.dialog(
       AlertDialog(
